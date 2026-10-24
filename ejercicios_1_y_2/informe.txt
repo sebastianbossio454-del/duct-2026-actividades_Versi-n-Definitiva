@@ -1,0 +1,24 @@
+https://github.com/sebastianbossio454-del/duct-2026-actividades
+
+1. Palabras que desaparecen
+En el top 10 de la Secuencia A predominan palabras funcionales como de (148 veces), que (104), la (89), el (69), los (65), y (67), en (61), es (43), un (39) y las (33). Al pasar a la Secuencia B, ninguna de ellas aparece en el ranking.
+
+Esto se debe a que todas forman parte de STOP_WORDS, el conjunto de palabras vacías definido en el script. La Secuencia B descarta los tokens que cumplen if token not in STOP_WORDS:, dejando afuera artículos, preposiciones, conjunciones y otras palabras gramaticales que se repiten mucho pero aportan poco significado por sí solas. Al eliminarlas, el ranking pasa a estar dominado por términos más representativos del contenido del cuento, como biblioteca, libros, libro, hexágono u hombres.
+
+2. Diferencia entre tokenizar() y .split()
+El resultado SÍ cambia porque tokenizar() realiza una limpieza mucho más precisa que .split().
+
+La diferencia se hace evidente cuando hay signos de puntuación pegados a las palabras, por ejemplo en "Biblioteca.", "hexágono,", "«libro»" o "¿qué?". Como .split() solo separa el texto por espacios, considera que "Biblioteca." y "Biblioteca" son tokens distintos. Eso fragmenta las frecuencias reales de una misma palabra y aumenta artificialmente la cantidad de términos diferentes.
+
+En cambio, tokenizar() convierte el texto a minúsculas con .lower() y elimina los signos de puntuación usando string.punctuation. Así, "Biblioteca.", "biblioteca" y "BIBLIOTECA" se cuentan como una única palabra, obteniendo un conteo más limpio y representativo del texto.
+
+3. Relación entre las líneas completadas
+La línea del Ejercicio 1 y las dos del Ejercicio 2 usan la misma lógica de conteo: frecuencias[token] = frecuencias.get(token, 0) + 1. Esta instrucción verifica si la palabra ya existe como clave del diccionario y, si no existe, la inicializa en 0 antes de incrementar su frecuencia.
+
+Se repite dos veces en el Ejercicio 2 porque hay que construir dos conteos distintos:
+
+frecuencias_todas, que registra todas las palabras del texto.
+
+frecuencias_sin_stopwords, que registra únicamente las palabras que no fueron filtradas por STOP_WORDS.
+
+Como cada diccionario almacena un conjunto diferente de palabras, cada uno necesita su propio bucle y su propia línea de acumulación. La lógica es idéntica, pero se aplica por separado para poder comparar después ambos rankings.
