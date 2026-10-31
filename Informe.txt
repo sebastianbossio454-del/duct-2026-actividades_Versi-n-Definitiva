@@ -1,0 +1,5 @@
+Actividad 3: Análisis de Frecuencia y Gráfico de Palabras
+
+1. La razón de esto es que Matplotlib dibuja las barras horizontales de abajo hacia arriba. Como la lista "top10" está ordenada de mayor a menor frecuencia, si no usáramos el operador de inversión [::-1], la palabra más frecuente aparecería abajo del todo. Invertir las listas hace que la palabra con mayor frecuencia quede posicionada en la parte superior del gráfico, respetando la convención natural de lectura (de arriba hacia abajo). 
+3. Si cambiáramos a "top_n=20", el gráfico va a intentar mostrar el doble de categorías en el mismo espacio vertical predeterminado y las etiquetas de las palabras se amontonarían y se superpondrían entre sí, haciendo que el gráfico pierda legibilidad (a menos que se amplíe proporcionalmente el tamaño de la figura para darles más espacio).
+3. Se utiliza "plt.barh()" porque permite mostrar las etiquetas de texto (las palabras) alineadas horizontalmente a lo largo del eje vertical, facilitando la lectura clara de cada término sin necesidad de rotarlas 90 grados, algo que ocurriría si utilizáramos barras verticales y dificultaría la visualización de los datos.
